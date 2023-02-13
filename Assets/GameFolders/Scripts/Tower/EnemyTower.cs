@@ -12,9 +12,13 @@ namespace GameFolders.Scripts.Tower
     {
         [SerializeField] private int health;
         [SerializeField] private Image healthFillImage;
-        [SerializeField] protected TextMeshProUGUI healthText;
+        [SerializeField] private TextMeshProUGUI healthText;
+        [SerializeField] private float upgradeTime;
 
         private Spawner _spawner;
+        
+        private float _currentTime;
+        
         public float Health { get; set; }
 
         private void Awake()
@@ -25,9 +29,21 @@ namespace GameFolders.Scripts.Tower
 
         private void Start()
         {
+            _currentTime = upgradeTime;
             Health = health;
             healthFillImage.fillAmount = Health / health;
             healthText.text = $"{(int)health} / {(int)Health}";
+        }
+
+        private void Update()
+        {
+            _currentTime -= Time.deltaTime;
+            
+            if (_currentTime <= 0)
+            {
+                _spawner.UpgradeSpawnTime();
+                _currentTime = upgradeTime;
+            }
         }
 
         public void TakeDamage(float damage)

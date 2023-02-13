@@ -25,8 +25,9 @@ namespace GameFolders.Scripts.Soldier
         private EventData _eventData;
         private NavMeshAgent _navMeshAgent;
         private TriggerArea _triggerArea;
-        private float _sword;
-
+        private Sword _sword;
+        private Coroutine _checkCoroutine;
+        
         private Vector3 _mainTargetPosition;
         private Vector3 _currentTargetPosition;
         private bool _isDead;
@@ -43,11 +44,12 @@ namespace GameFolders.Scripts.Soldier
             _eventData = Resources.Load("EventData") as EventData;
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _triggerArea = GetComponentInChildren<TriggerArea>();
-            _sword = GetComponentInChildren<Sword>().Damage = hitDamage;
+            _sword = GetComponentInChildren<Sword>();
         }
 
         private void Start()
         {
+            _sword.Damage = hitDamage;
             _triggerArea.transform.localScale = Vector3.one * castRange;
         }
 
@@ -125,6 +127,29 @@ namespace GameFolders.Scripts.Soldier
             StartCoroutine(AttackEnemy(soldier));
         }
 
+        public void SetNewTarget(Vector3 position)
+        {
+            if (_isAttacking || _isDead) return;
+
+            _currentTargetPosition = position;
+            _navMeshAgent.SetDestination(_currentTargetPosition);
+            
+            if (_checkCoroutine != null)
+            {
+                StopCoroutine(_checkCoroutine);
+            }
+            
+            _checkCoroutine = StartCoroutine(Check());
+        }
+
+        public void ResetTarget()
+        {
+            if (_isAttacking || _isDead) return;
+
+            _currentTargetPosition = _mainTargetPosition;
+            _navMeshAgent.SetDestination(_currentTargetPosition);
+        }
+
         IEnumerator AttackEnemy(Soldier soldier)
         {
             _isAttacking = true;
@@ -169,6 +194,16 @@ namespace GameFolders.Scripts.Soldier
             _animator.SetTrigger("Death");
             yield return new WaitForSeconds(stayGroundTimeWhenDeath - 0.1f);
             CompleteTask();
+        }
+
+        IEnumerator Check()
+        {
+            yield return new WaitForSeconds(0.1f);
+            
+            if (_navMeshAgent.velocity.sqrMagnitude < 0.5f)
+            {
+                ResetTarget();
+            }
         }
     }
 }

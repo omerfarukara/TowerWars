@@ -117,7 +117,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4150500510678419716, guid: 57a49bab9ddd8784ba23fc78ce43dbfe, type: 3}
       propertyPath: m_Name
-      value: Player Tower
+      value: Player Tower Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 4150500510678419716, guid: 57a49bab9ddd8784ba23fc78ce43dbfe, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6979492930621092260, guid: 57a49bab9ddd8784ba23fc78ce43dbfe, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag

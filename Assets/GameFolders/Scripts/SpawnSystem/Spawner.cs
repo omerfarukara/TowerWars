@@ -56,7 +56,7 @@ namespace GameFolders.Scripts.SpawnSystem
 
         public void UpgradeSpawnTime()
         {
-            _currentSpawnTime -= _currentSpawnTime * levelUpPercentage;
+            _currentSpawnTime -= _currentSpawnTime * levelUpPercentage * 0.01f;
         }
 
         private void SetNewSpawnTime()

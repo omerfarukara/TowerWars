@@ -30,6 +30,14 @@ namespace GameFolders.Scripts.Tower
             healthText.text = $"{(int)health} / {(int)Health}"; ;
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                UpgradeSpawnTime();
+            }
+        }
+
         public void TakeDamage(float damage)
         {
             Health -= damage;
@@ -45,6 +53,11 @@ namespace GameFolders.Scripts.Tower
         public Vector3 GetNewPosition()
         {
             return _spawner.GetNewPosition();
+        }
+
+        private void UpgradeSpawnTime()
+        {
+            _spawner.UpgradeSpawnTime();
         }
     }
 }

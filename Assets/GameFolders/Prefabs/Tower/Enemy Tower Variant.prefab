@@ -109,7 +109,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4150500510678419716, guid: 57a49bab9ddd8784ba23fc78ce43dbfe, type: 3}
       propertyPath: m_Name
-      value: Enemy Tower
+      value: Enemy Tower Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 4150500510678419716, guid: 57a49bab9ddd8784ba23fc78ce43dbfe, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6979492930621092260, guid: 57a49bab9ddd8784ba23fc78ce43dbfe, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
@@ -119,6 +123,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 1a2e18c3b8601894ba0ee0c3abd31128, type: 2}
+    - target: {fileID: 7856221189583921939, guid: 57a49bab9ddd8784ba23fc78ce43dbfe, type: 3}
+      propertyPath: m_Size.z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7856221189583921939, guid: 57a49bab9ddd8784ba23fc78ce43dbfe, type: 3}
+      propertyPath: m_Center.z
+      value: 2.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57a49bab9ddd8784ba23fc78ce43dbfe, type: 3}
 --- !u!114 &1482801710717169280 stripped
@@ -152,6 +164,7 @@ MonoBehaviour:
   health: 1000
   healthFillImage: {fileID: 1482801710717169280}
   healthText: {fileID: 4753921610048906186}
+  upgradeTime: 5
 --- !u!114 &4753921610048906186 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6610638424862077392, guid: 57a49bab9ddd8784ba23fc78ce43dbfe, type: 3}
