@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 using GameAnalyticsSDK;
+using GameFolders.Scripts.Concretes;
 
 public class GameManager : MonoSingleton<GameManager>
 {
@@ -15,7 +16,7 @@ public class GameManager : MonoSingleton<GameManager>
     [SerializeField] int goldCoefficient;
 
     private EventData _eventData;
-    GameState _gameState = GameState.Play;
+    private GameState _gameState;
 
     public GameState GameState
     {
@@ -108,8 +109,5 @@ public class GameManager : MonoSingleton<GameManager>
         _gameState = GameState.Play;
         SceneManager.LoadScene(Level);
     }
-
     #endregion
-
-
 }

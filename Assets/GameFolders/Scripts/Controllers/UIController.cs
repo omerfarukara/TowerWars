@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using GameFolders.Scripts.Concretes;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using GameFolders.Scripts.Concretes;
 using UnityEngine;
 
 public class SoundManager : MonoSingleton<SoundManager>
