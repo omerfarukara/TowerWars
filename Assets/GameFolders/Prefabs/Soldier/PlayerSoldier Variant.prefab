@@ -7,6 +7,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1929918381787751281, guid: d2c0f05e7b30f4eb9a0a701ac8b6cc06, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2674940871501273278, guid: d2c0f05e7b30f4eb9a0a701ac8b6cc06, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 6312729232006451413, guid: d2c0f05e7b30f4eb9a0a701ac8b6cc06, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -53,24 +61,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7655455167112200965, guid: d2c0f05e7b30f4eb9a0a701ac8b6cc06, type: 3}
       propertyPath: m_Name
-      value: PlayerSoldier
+      value: PlayerSoldier Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 7655455167112200965, guid: d2c0f05e7b30f4eb9a0a701ac8b6cc06, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2c0f05e7b30f4eb9a0a701ac8b6cc06, type: 3}
---- !u!1 &6049612845368142943 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7655455167112200965, guid: d2c0f05e7b30f4eb9a0a701ac8b6cc06, type: 3}
-  m_PrefabInstance: {fileID: 4163904679453405018}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2751373849341576752
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6049612845368142943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d65d02b4150e24380a0485a822dc6e89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

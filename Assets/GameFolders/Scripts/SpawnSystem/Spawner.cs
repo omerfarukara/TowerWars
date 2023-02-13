@@ -9,20 +9,28 @@ namespace GameFolders.Scripts.SpawnSystem
 {
     public class Spawner : MonoBehaviour
     {
-        [Header("General Settings")] 
-        [SerializeField] private SpawnObject[] objects;
+        [Header("General Settings")] [SerializeField]
+        private SpawnObject[] objects;
 
         [SerializeField] private float yOffset = 0f;
 
-        [Header("Time Settings")]
-        [SerializeField] private float spawnTime;
+        [Header("Time Settings")] [SerializeField]
+        private float spawnTime;
+
         [SerializeField] [Range(0, 100)] private float levelUpPercentage;
 
-        [Header("Area Border Settings")] 
-        [SerializeField] private BorderType areaBorderType;
-        [ShowIf("areaBorderType", BorderType.Rectangle)] [SerializeField] private Vector2 xBorders;
-        [ShowIf("areaBorderType", BorderType.Rectangle)] [SerializeField] private Vector2 zBorders;
-        [ShowIf("areaBorderType", BorderType.Circle)] [SerializeField] private float radius;
+        [Header("Area Border Settings")] [SerializeField]
+        private BorderType areaBorderType;
+
+        [ShowIf("areaBorderType", BorderType.Rectangle)] [SerializeField]
+        private Vector2 xBorders;
+
+        [ShowIf("areaBorderType", BorderType.Rectangle)] [SerializeField]
+        private Vector2 zBorders;
+
+        [ShowIf("areaBorderType", BorderType.Circle)] [SerializeField]
+        private float radius;
+
         [SerializeField] private Color borderGizmosColor = Color.black;
 
         private readonly Queue<SpawnObject> _pool = new Queue<SpawnObject>();
@@ -50,7 +58,7 @@ namespace GameFolders.Scripts.SpawnSystem
         {
             _currentSpawnTime -= _currentSpawnTime * levelUpPercentage;
         }
-        
+
         private void SetNewSpawnTime()
         {
             _spawnTime = _currentSpawnTime;
@@ -130,6 +138,7 @@ namespace GameFolders.Scripts.SpawnSystem
 
         private void OnDrawGizmosSelected()
         {
+#if UNITY_EDITOR
             switch (areaBorderType)
             {
                 case BorderType.Rectangle:
@@ -144,9 +153,10 @@ namespace GameFolders.Scripts.SpawnSystem
                     break;
                 case BorderType.Circle:
                     UnityEditor.Handles.color = borderGizmosColor;
-                    UnityEditor.Handles.DrawSolidDisc(transform.position ,Vector3.up, radius);
+                    UnityEditor.Handles.DrawSolidDisc(transform.position, Vector3.up, radius);
                     break;
             }
+#endif
         }
     }
 }

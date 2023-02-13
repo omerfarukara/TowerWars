@@ -1,108 +1,105 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using GameFolders.Scripts.Concretes;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
-using GameAnalyticsSDK;
-using GameFolders.Scripts.Concretes;
 
-public class GameManager : MonoSingleton<GameManager>
+namespace GameFolders.Scripts.Managers
 {
-    #region Fields And Properties
-
-    [SerializeField] int levelCount;
-    [SerializeField] int randomLevelLowerLimit;
-    [SerializeField] int goldCoefficient;
-
-    private EventData _eventData;
-    private GameState _gameState;
-
-    public GameState GameState
+    public class GameManager : MonoSingleton<GameManager>
     {
-        get => _gameState;
-        set =>  _gameState = value;
-    }
+        #region Fields And Properties
 
-    public int Level
-    {
-        get => PlayerPrefs.GetInt("Level") > levelCount ? Random.Range(randomLevelLowerLimit, levelCount) : PlayerPrefs.GetInt("Level",1);
-        set
+        [SerializeField] int levelCount;
+        [SerializeField] int randomLevelLowerLimit;
+        [SerializeField] int goldCoefficient;
+
+        private EventData _eventData;
+        private GameState _gameState;
+
+        public GameState GameState
         {
-            PlayerPrefs.SetInt("RealLevel", value);
-            PlayerPrefs.SetInt("Level", value);
-        } 
-    }
-    
-    public int Gold
-    {
-        get => PlayerPrefs.GetInt("Gold");
-        set => PlayerPrefs.SetInt("Gold", value);
-    }
+            get => _gameState;
+            set => _gameState = value;
+        }
 
-    public int RealLevel => PlayerPrefs.GetInt("RealLevel", 1);
-
-    public int Score
-    {
-        get => PlayerPrefs.GetInt("Score");
-        set => PlayerPrefs.SetInt("Score", value);
-    }
-
-
-    #endregion
-   
-    #region MonoBehaviour Methods
-
-    private void Awake()
-    {
-        Singleton(true);
-        _eventData = Resources.Load("EventData") as EventData;
-        GameAnalytics.Initialize();
-        GameAnalytics.NewDesignEvent("Game Start");
-    }
-    
-    private void OnEnable()
-    {
-        _eventData.OnFinish += Finish;
-    }
-
-    private void Start()
-    {
-        if (SceneManager.GetActiveScene().buildIndex == 0)
+        public int Level
         {
+            get => PlayerPrefs.GetInt("Level") > levelCount
+                ? Random.Range(randomLevelLowerLimit, levelCount)
+                : PlayerPrefs.GetInt("Level", 1);
+            set
+            {
+                PlayerPrefs.SetInt("RealLevel", value);
+                PlayerPrefs.SetInt("Level", value);
+            }
+        }
+
+        public int Gold
+        {
+            get => PlayerPrefs.GetInt("Gold");
+            set => PlayerPrefs.SetInt("Gold", value);
+        }
+
+        public int RealLevel => PlayerPrefs.GetInt("RealLevel", 1);
+
+        public int Score
+        {
+            get => PlayerPrefs.GetInt("Score");
+            set => PlayerPrefs.SetInt("Score", value);
+        }
+
+        #endregion
+
+        #region MonoBehaviour Methods
+
+        private void Awake()
+        {
+            Singleton(true);
+            _eventData = Resources.Load("EventData") as EventData;
+        }
+
+        private void OnEnable()
+        {
+            _eventData.OnFinish += Finish;
+        }
+
+        private void Start()
+        {
+            if (SceneManager.GetActiveScene().buildIndex == 0)
+            {
+                SceneManager.LoadScene(Level);
+            }
+        }
+
+        #endregion
+
+        #region Listening Methods
+
+        private void Finish(bool statu)
+        {
+            if (statu)
+            {
+            }
+            else
+            {
+            }
+        }
+
+        #endregion
+
+        #region Unique Methods
+
+        public bool Playability()
+        {
+            return _gameState == GameState.Play;
+        }
+
+        public void NextLevel()
+        {
+            _gameState = GameState.Play;
             SceneManager.LoadScene(Level);
         }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Listening Methods
-
-    private void Finish(bool statu)
-    {
-        if (statu)
-        {
-
-        }
-        else
-        {
-            
-        }
-    }
-
-    #endregion
-    
-    #region Unique Methods
-
-    public bool Playability()
-    {
-        return _gameState == GameState.Play;
-    }
-    
-    public void NextLevel()
-    {
-        _gameState = GameState.Play;
-        SceneManager.LoadScene(Level);
-    }
-    #endregion
 }

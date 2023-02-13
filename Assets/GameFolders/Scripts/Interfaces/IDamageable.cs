@@ -2,7 +2,7 @@ namespace GameFolders.Scripts.Interfaces
 {
     public interface IDamageable
     {
-        public int Health { get; set; }
-        public void TakeDamage(int damage);
+        public float Health { get; set; }
+        public void TakeDamage(float damage);
     }
 }

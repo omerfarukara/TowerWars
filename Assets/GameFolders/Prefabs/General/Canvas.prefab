@@ -397,7 +397,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 65335
 --- !u!114 &7444709712638831886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,7 +410,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 415914e59f13c4c9db0d24706f38e4c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventData: {fileID: 11400000, guid: 5694dda497e224db28fe409f337fae57, type: 2}
   victoryPanel: {fileID: 7444709713260856170}
   losePanel: {fileID: 7444709713343262495}
   nextLevelButton: {fileID: 7444709713512493196}

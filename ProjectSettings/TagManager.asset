@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - TriggerRange
   layers:
   - Default
   - TransparentFX
@@ -13,14 +14,14 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - PlayerTower
+  - EnemyTower
+  - PlayerSoldier
+  - EnemySoldier
+  - PlayerSword
+  - EnemySword
+  - PlayerTriggerArea
+  - EnemyTriggerArea
   - 
   - 
   - 

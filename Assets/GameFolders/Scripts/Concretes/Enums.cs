@@ -37,3 +37,9 @@ public enum OrderType
     Ordered,
     Random
 }
+
+public enum BelongsTo
+{
+    Player,
+    Enemy
+}

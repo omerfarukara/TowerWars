@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1529894646722736982}
   - component: {fileID: 7380397010511430110}
-  - component: {fileID: 6259577604691157629}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -45,19 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e649b6ab7bb1444eb8247c0a6c5eaa76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventData: {fileID: 11400000, guid: 5694dda497e224db28fe409f337fae57, type: 2}
-  levelCount: 0
-  randomLevelLowerLimit: 0
+  levelCount: 1
+  randomLevelLowerLimit: 1
   goldCoefficient: 0
---- !u!114 &6259577604691157629
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8136020707257707282}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81aa050207cfd4ba5bd63297446ed357, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
