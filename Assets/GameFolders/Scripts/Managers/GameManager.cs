@@ -73,11 +73,6 @@ public class GameManager : MonoSingleton<GameManager>
             SceneManager.LoadScene(Level);
         }
     }
-    
-    private void OnDisable()
-    {
-        _eventData.OnFinish -= Finish;
-    }
 
     #endregion
 

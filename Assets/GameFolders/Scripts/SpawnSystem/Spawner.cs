@@ -90,7 +90,7 @@ namespace GameFolders.Scripts.SpawnSystem
             spawnObject.WakeUp(GetNewPosition());
         }
 
-        private Vector3 GetNewPosition()
+        public Vector3 GetNewPosition()
         {
             float x, z;
 
@@ -101,7 +101,7 @@ namespace GameFolders.Scripts.SpawnSystem
                     x = Random.Range(xBorders.x, xBorders.y);
                     z = Random.Range(zBorders.x, zBorders.y);
 
-                    return new Vector3(x, yOffset, z);
+                    return new Vector3(x, yOffset, z) + transform.position;
 
                 case BorderType.Circle:
 
@@ -119,6 +119,7 @@ namespace GameFolders.Scripts.SpawnSystem
                     }
 
                     newPosition.y = yOffset;
+                    newPosition += transform.position;
 
                     return newPosition;
 

@@ -7,6 +7,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 552811638545351701, guid: 57a49bab9ddd8784ba23fc78ce43dbfe, type: 3}
+      propertyPath: objects.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 552811638545351701, guid: 57a49bab9ddd8784ba23fc78ce43dbfe, type: 3}
+      propertyPath: objects.Array.data[0]
+      value: 
+      objectReference: {fileID: 2751373849341576752, guid: dc96c1607237046729d04dd9ffef8206, type: 3}
     - target: {fileID: 3662089047190328254, guid: 57a49bab9ddd8784ba23fc78ce43dbfe, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -53,7 +61,29 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4150500510678419716, guid: 57a49bab9ddd8784ba23fc78ce43dbfe, type: 3}
       propertyPath: m_Name
-      value: Player Tower
+      value: Player Tower Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 8327740779115878044, guid: 57a49bab9ddd8784ba23fc78ce43dbfe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57a49bab9ddd8784ba23fc78ce43dbfe, type: 3}
+--- !u!1 &5911710440338133544 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4150500510678419716, guid: 57a49bab9ddd8784ba23fc78ce43dbfe, type: 3}
+  m_PrefabInstance: {fileID: 7751565134249728812}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1224155457619649377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5911710440338133544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f3c60ecbe51f47aba44a037b6606332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
