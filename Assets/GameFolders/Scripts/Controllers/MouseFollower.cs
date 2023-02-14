@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using DG.Tweening;
+using GameFolders.Scripts.Concretes;
 using UnityEngine;
 
 namespace GameFolders.Scripts.Controllers
 {
     public class MouseFollower : MonoBehaviour
     {
-        #region Old
+        #region Old Mechanic
 
         // [SerializeField] private float openTime;
         // [SerializeField] private float closeTime;
@@ -100,7 +101,8 @@ namespace GameFolders.Scripts.Controllers
         [SerializeField] private LayerMask groundLayer;
 
         private Camera _camera;
-
+        private EventData _eventData;
+        
         private Vector3 _screenPosition;
         private Vector3 _worldPosition;
 
@@ -112,9 +114,9 @@ namespace GameFolders.Scripts.Controllers
         private void Awake()
         {
             _camera = Camera.main;
+            _eventData = Resources.Load("EventData") as EventData;
         }
 
-        // Start is called before the first frame update
         void Start()
         {
             _currentSpeed = maxSpeed;

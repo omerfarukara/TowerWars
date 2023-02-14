@@ -30,8 +30,7 @@ public class RandomizeButton : MonoBehaviour
     private void Play()
     {
         if (!isPlayButton) return;
-        //SceneManager.LoadScene(GameManager.Instance.Level);
-        print("GameManager.Instance.Level");
+        SceneManager.LoadScene(GameManager.Instance.Level);
     }
 
     internal void SetPlayButton(Sprite playSprite)

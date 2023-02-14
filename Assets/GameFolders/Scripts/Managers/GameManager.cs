@@ -63,14 +63,6 @@ namespace GameFolders.Scripts.Managers
             _eventData.OnFinish += Finish;
         }
 
-        private void Start()
-        {
-            if (SceneManager.GetActiveScene().buildIndex == 0)
-            {
-                SceneManager.LoadScene(Level);
-            }
-        }
-
         #endregion
 
         #region Listening Methods

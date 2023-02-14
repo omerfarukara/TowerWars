@@ -52,6 +52,11 @@ namespace GameFolders.Scripts.Soldier
             _sword = GetComponentInChildren<Sword>();
         }
 
+        private void OnEnable()
+        {
+            _eventData.OnFinish += Finish;
+        }
+
         private void Start()
         {
             _sword.Damage = _hitDamage;
@@ -99,10 +104,24 @@ namespace GameFolders.Scripts.Soldier
             }
         }
 
+        private void OnDisable()
+        {
+            _eventData.OnFinish -= Finish;
+        }
+
         protected override void StartTask()
         {
+            if (belongsTo == BelongsTo.Player)
+            {
+                _hitDamage = GameController.Instance.Attack;
+            }
+            else
+            {
+                _hitDamage = EnemyTower.Instance.HitDamage;
+                transform.rotation = Quaternion.Euler(Vector3.up * 180);
+            }
+            
             _navMeshAgent.speed = moveSpeed;
-            _hitDamage = belongsTo == BelongsTo.Player ? GameController.Instance.Attack : EnemyTower.Instance.HitDamage;
             Health = health;
             _isAttacking = false;
             _isDead = false;
@@ -114,6 +133,8 @@ namespace GameFolders.Scripts.Soldier
         
         public void TakeDamage(float damage)
         {
+            if (_isDead) return;
+
             Health -= damage;
             
             if (Health <= 0)
@@ -155,6 +176,12 @@ namespace GameFolders.Scripts.Soldier
 
             _currentTargetPosition = _mainTargetPosition;
             _navMeshAgent.SetDestination(_currentTargetPosition);
+        }
+
+        private void Finish(bool statu)
+        {
+            _animator.SetTrigger("Death");
+            CompleteTask();
         }
 
         IEnumerator AttackEnemy(Soldier soldier)

@@ -58,13 +58,18 @@ namespace GameFolders.Scripts.Tower
 
         public void TakeDamage(float damage)
         {
-            Health -= damage;
-            healthFillImage.fillAmount = Health / health;
-            healthText.text = $"{(int)health} / {(int)Health}";
-
             if (Health <= 0)
             {
                 _eventData.OnFinish?.Invoke(true);
+                Health = 0;
+                healthFillImage.fillAmount = Health / health;
+                healthText.text = $"{(int)health} / {(int)Health}";
+            }
+            else
+            {
+                Health -= damage;
+                healthFillImage.fillAmount = Health / health;
+                healthText.text = $"{(int)health} / {(int)Health}";
             }
         }
         

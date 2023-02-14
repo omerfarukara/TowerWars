@@ -66,6 +66,7 @@ namespace GameFolders.Scripts.Controllers
 
         private void Start()
         {
+            Debug.Log("asd");
             _incomePrice = incomeStartPrice;
             _attackPrice = attackStartPrice;
             _productionPrice = productionStartPrice;

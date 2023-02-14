@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using GameFolders.Scripts.Concretes;
+using GameFolders.Scripts.Controllers;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -11,7 +12,7 @@ namespace GameFolders.Scripts.SpawnSystem
     {
         [Header("General Settings")] [SerializeField]
         private SpawnObject[] objects;
-
+        [SerializeField] private BelongsTo belongsTo;
         [SerializeField] private float yOffset = 0f;
 
         [Header("Time Settings")] [SerializeField]
@@ -31,20 +32,40 @@ namespace GameFolders.Scripts.SpawnSystem
 
         [SerializeField] private Color borderGizmosColor = Color.black;
 
+        private EventData _eventData;
+
         private readonly Queue<SpawnObject> _pool = new Queue<SpawnObject>();
 
-        protected float _currentSpawnTime;
+        private float _currentSpawnTime;
         private float _spawnTime;
+        private bool _canSpawn = true;
+        
+        private void Awake()
+        {
+            _eventData = Resources.Load("EventData") as EventData;
+        }
+
+        private void OnEnable()
+        {
+            _eventData.OnFinish += Finish;
+        }
 
         private void Start()
         {
-            _currentSpawnTime = spawnTime;
+            _currentSpawnTime = belongsTo == BelongsTo.Player ? GameController.Instance.ProductionTime : spawnTime;
             SetNewSpawnTime();
         }
 
         private void Update()
         {
+            if (!_canSpawn) return;
+
             SpawnTimeControl();
+        }
+
+        private void OnDisable()
+        {
+            _eventData.OnFinish -= Finish;
         }
 
         public void AddQueue(SpawnObject spawnObject)
@@ -60,6 +81,44 @@ namespace GameFolders.Scripts.SpawnSystem
         public void UpgradeSpawnTime(float newSpawnTime)
         {
             _currentSpawnTime = newSpawnTime;
+        }
+        
+        public Vector3 GetNewPosition()
+        {
+            float x, z;
+
+            switch (areaBorderType)
+            {
+                case BorderType.Rectangle:
+
+                    x = Random.Range(xBorders.x, xBorders.y);
+                    z = Random.Range(zBorders.x, zBorders.y);
+
+                    return new Vector3(x, yOffset, z) + transform.position;
+
+                case BorderType.Circle:
+
+                    x = Random.Range(-radius, radius);
+                    z = Random.Range(-radius, radius);
+
+                    Vector3 newPosition = new Vector3(x, 0, z);
+
+                    if (Vector3.Distance(newPosition, Vector3.zero) > radius)
+                    {
+                        float differance = Vector3.Distance(newPosition, Vector3.zero) - radius;
+
+                        newPosition.x = newPosition.x > 0 ? newPosition.x - differance : newPosition.x + differance;
+                        newPosition.z = newPosition.z > 0 ? newPosition.z - differance : newPosition.z + differance;
+                    }
+
+                    newPosition.y = yOffset;
+                    newPosition += transform.position;
+
+                    return newPosition;
+
+                default:
+                    return Vector2.zero;
+            }
         }
 
         private void SetNewSpawnTime()
@@ -101,42 +160,9 @@ namespace GameFolders.Scripts.SpawnSystem
             spawnObject.WakeUp(GetNewPosition());
         }
 
-        public Vector3 GetNewPosition()
+        private void Finish(bool statu)
         {
-            float x, z;
-
-            switch (areaBorderType)
-            {
-                case BorderType.Rectangle:
-
-                    x = Random.Range(xBorders.x, xBorders.y);
-                    z = Random.Range(zBorders.x, zBorders.y);
-
-                    return new Vector3(x, yOffset, z) + transform.position;
-
-                case BorderType.Circle:
-
-                    x = Random.Range(-radius, radius);
-                    z = Random.Range(-radius, radius);
-
-                    Vector3 newPosition = new Vector3(x, 0, z);
-
-                    if (Vector3.Distance(newPosition, Vector3.zero) > radius)
-                    {
-                        float differance = Vector3.Distance(newPosition, Vector3.zero) - radius;
-
-                        newPosition.x = newPosition.x > 0 ? newPosition.x - differance : newPosition.x + differance;
-                        newPosition.z = newPosition.z > 0 ? newPosition.z - differance : newPosition.z + differance;
-                    }
-
-                    newPosition.y = yOffset;
-                    newPosition += transform.position;
-
-                    return newPosition;
-
-                default:
-                    return Vector2.zero;
-            }
+            _canSpawn = false;
         }
 
         private void OnDrawGizmosSelected()
