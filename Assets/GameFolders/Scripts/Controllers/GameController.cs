@@ -40,14 +40,19 @@ namespace GameFolders.Scripts.Controllers
         private int _attackPrice;
         private int _productionPrice;
 
+        public int IncomePrice => _incomePrice;
+        public int ProductionPrice => _productionPrice;
+        public int AttackPrice => _attackPrice;
+        public int Income => _goldCoefficient;
+        public float ProductionTime => _productionTime;
+        public int Attack => _attack;
+
         public int Gold
         {
             get => _gold;
             set => _gold = value;
         }
 
-        public int Attack => _attack;
-        
         private void Awake()
         {
             Singleton();

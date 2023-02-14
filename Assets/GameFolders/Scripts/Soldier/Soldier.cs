@@ -8,6 +8,7 @@ using GameFolders.Scripts.SpawnSystem;
 using GameFolders.Scripts.Tower;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 namespace GameFolders.Scripts.Soldier
 {
@@ -20,6 +21,10 @@ namespace GameFolders.Scripts.Soldier
         [SerializeField] private float attackRange;
         [SerializeField] private float castRange;
 
+        [Header("Action Events")] 
+        [SerializeField] private UnityEvent takeDamageListener;
+        [SerializeField] private UnityEvent deathListener;
+        
         private Animator _animator;
         private EventData _eventData;
         private NavMeshAgent _navMeshAgent;
@@ -78,7 +83,7 @@ namespace GameFolders.Scripts.Soldier
             {
                 if (other.TryGetComponent(out EnemyTower enemyTower))
                 {
-                    enemyTower.TakeDamage(_hitDamage * 0.1f * Time.deltaTime);
+                    enemyTower.TakeDamage(_hitDamage * 0.01f * Time.deltaTime);
                     _navMeshAgent.speed = 0;
                     _animator.SetTrigger("Attack");
                 }
@@ -87,7 +92,7 @@ namespace GameFolders.Scripts.Soldier
             {
                 if (other.TryGetComponent(out PlayerTower playerTower))
                 {
-                    playerTower.TakeDamage(_hitDamage * 0.1f * Time.deltaTime);
+                    playerTower.TakeDamage(_hitDamage * 0.01f * Time.deltaTime);
                     _navMeshAgent.speed = 0;
                     _animator.SetTrigger("Attack");
                 }
@@ -118,6 +123,7 @@ namespace GameFolders.Scripts.Soldier
             else
             {
                 _animator.SetTrigger("Knock");
+                takeDamageListener?.Invoke();
             }
         }
         
@@ -198,7 +204,7 @@ namespace GameFolders.Scripts.Soldier
             
             yield return new WaitForSeconds(0.1f);
             _animator.SetTrigger("Death");
-            
+            deathListener?.Invoke();
             yield return new WaitForSeconds(stayGroundTimeWhenDeath - 0.1f);
             CompleteTask();
         }
