@@ -57,6 +57,14 @@ namespace GameFolders.Scripts.Controllers
         {
             Singleton();
             _eventData = Resources.Load("EventData") as EventData;
+            _incomePrice = incomeStartPrice;
+            _attackPrice = attackStartPrice;
+            _productionPrice = productionStartPrice;
+            _goldCoefficient = goldStartValue;
+            _attack = attackStartValue;
+            _productionTime = productionStartValue;
+            _eventData.OnAttackChanged?.Invoke(_attack);
+            _eventData.OnProductionChanged?.Invoke(_productionTime);
         }
 
         private void OnEnable()
@@ -66,15 +74,7 @@ namespace GameFolders.Scripts.Controllers
 
         private void Start()
         {
-            Debug.Log("asd");
-            _incomePrice = incomeStartPrice;
-            _attackPrice = attackStartPrice;
-            _productionPrice = productionStartPrice;
-            _goldCoefficient = goldStartValue;
-            _attack = attackStartValue;
-            _productionTime = productionStartValue;
-            _eventData.OnAttackChanged?.Invoke(_attack);
-            _eventData.OnProductionChanged?.Invoke(_productionTime);
+            
         }
 
         private void OnDisable()

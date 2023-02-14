@@ -221,16 +221,14 @@ namespace GameFolders.Scripts.Soldier
         IEnumerator DeathCoroutine()
         {
             _isDead = true;
-            _animator.SetTrigger("Death");
+            _animator.SetBool("Death", true);
             _navMeshAgent.speed = 0;
             
             if (belongsTo == BelongsTo.Enemy)
             {
                 _eventData.OnRewardCoin?.Invoke();
             }
-            
-            yield return new WaitForSeconds(0.1f);
-            _animator.SetTrigger("Death");
+
             deathListener?.Invoke();
             yield return new WaitForSeconds(stayGroundTimeWhenDeath - 0.1f);
             CompleteTask();
