@@ -39,11 +39,18 @@ namespace GameFolders.Scripts.Controllers
         {
             if (Input.GetMouseButtonDown(0))
             {
-                if (_closeTween != null && _closeTween.IsPlaying())
+                _screenPosition = Input.mousePosition;
+                
+                Ray ray = _camera.ScreenPointToRay(_screenPosition);
+
+                if (Physics.Raycast(ray, out RaycastHit hit, 100,groundLayer))
                 {
-                    _closeTween.Kill();
+                    if (_closeTween != null && _closeTween.IsPlaying())
+                    {
+                        _closeTween.Kill();
+                    }
+                    _openTween = transform.DOScale(Vector3.one * _defaultScale, openTime).SetEase(openEase);
                 }
-                _openTween = transform.DOScale(Vector3.one * _defaultScale, openTime).SetEase(openEase);
             }
             else if (Input.GetMouseButton(0))
             {

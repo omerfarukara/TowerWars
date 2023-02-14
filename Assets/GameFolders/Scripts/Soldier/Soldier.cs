@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using GameFolders.Scripts.Concretes;
+using GameFolders.Scripts.Controllers;
 using GameFolders.Scripts.Interfaces;
 using GameFolders.Scripts.SpawnSystem;
 using GameFolders.Scripts.Tower;
@@ -18,9 +19,7 @@ namespace GameFolders.Scripts.Soldier
         [SerializeField] private float stayGroundTimeWhenDeath;
         [SerializeField] private float attackRange;
         [SerializeField] private float castRange;
-        [SerializeField] private float hitDamage;
-        [SerializeField] private float damagePerSecond;
-        
+
         private Animator _animator;
         private EventData _eventData;
         private NavMeshAgent _navMeshAgent;
@@ -34,6 +33,7 @@ namespace GameFolders.Scripts.Soldier
         private float _defaultMoveSpeed;
         private bool _isAttacking;
         private bool _isAttackingTower;
+        private int _hitDamage;
 
         public bool IsDead => _isDead;
         public float Health { get; set; }
@@ -49,7 +49,7 @@ namespace GameFolders.Scripts.Soldier
 
         private void Start()
         {
-            _sword.Damage = hitDamage;
+            _sword.Damage = _hitDamage;
             _triggerArea.transform.localScale = Vector3.one * castRange;
         }
 
@@ -78,7 +78,7 @@ namespace GameFolders.Scripts.Soldier
             {
                 if (other.TryGetComponent(out EnemyTower enemyTower))
                 {
-                    enemyTower.TakeDamage(damagePerSecond * Time.deltaTime);
+                    enemyTower.TakeDamage(_hitDamage * 0.1f * Time.deltaTime);
                     _navMeshAgent.speed = 0;
                     _animator.SetTrigger("Attack");
                 }
@@ -87,7 +87,7 @@ namespace GameFolders.Scripts.Soldier
             {
                 if (other.TryGetComponent(out PlayerTower playerTower))
                 {
-                    playerTower.TakeDamage(damagePerSecond * Time.deltaTime);
+                    playerTower.TakeDamage(_hitDamage * 0.1f * Time.deltaTime);
                     _navMeshAgent.speed = 0;
                     _animator.SetTrigger("Attack");
                 }
@@ -97,6 +97,7 @@ namespace GameFolders.Scripts.Soldier
         protected override void StartTask()
         {
             _navMeshAgent.speed = moveSpeed;
+            _hitDamage = belongsTo == BelongsTo.Player ? GameController.Instance.Attack : EnemyTower.Instance.HitDamage;
             Health = health;
             _isAttacking = false;
             _isDead = false;
@@ -189,9 +190,15 @@ namespace GameFolders.Scripts.Soldier
             _isDead = true;
             _animator.SetTrigger("Death");
             _navMeshAgent.speed = 0;
-
+            
+            if (belongsTo == BelongsTo.Enemy)
+            {
+                _eventData.OnRewardCoin?.Invoke();
+            }
+            
             yield return new WaitForSeconds(0.1f);
             _animator.SetTrigger("Death");
+            
             yield return new WaitForSeconds(stayGroundTimeWhenDeath - 0.1f);
             CompleteTask();
         }

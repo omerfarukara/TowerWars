@@ -13,7 +13,8 @@ namespace GameFolders.Scripts.Tower
         [SerializeField] private int health;
         [SerializeField] private Image healthFillImage;
         [SerializeField] protected TextMeshProUGUI healthText;
-        
+
+        private EventData _eventData;
         private Spawner _spawner;
         public float Health { get; set; }
 
@@ -21,21 +22,24 @@ namespace GameFolders.Scripts.Tower
         {
             Singleton();
             _spawner = GetComponentInChildren<Spawner>();
+            _eventData = Resources.Load("EventData") as EventData;
         }
-        
+
+        private void OnEnable()
+        {
+            _eventData.OnProductionChanged += UpgradeSpawnTime;
+        }
+
         private void Start()
         {
             Health = health;
             healthFillImage.fillAmount = Health / health;
             healthText.text = $"{(int)health} / {(int)Health}"; ;
         }
-
-        private void Update()
+        
+        private void OnDisable()
         {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                UpgradeSpawnTime();
-            }
+            _eventData.OnProductionChanged -= UpgradeSpawnTime;
         }
 
         public void TakeDamage(float damage)
@@ -55,9 +59,9 @@ namespace GameFolders.Scripts.Tower
             return _spawner.GetNewPosition();
         }
 
-        private void UpgradeSpawnTime()
+        private void UpgradeSpawnTime(float newSpawnTime)
         {
-            _spawner.UpgradeSpawnTime();
+            _spawner.UpgradeSpawnTime(newSpawnTime);
         }
     }
 }

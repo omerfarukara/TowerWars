@@ -8,5 +8,8 @@ namespace GameFolders.Scripts.Concretes
     {
         public Action OnPlay;
         public Action<bool> OnFinish;
+        public Action OnRewardCoin;
+        public Action<int> OnAttackChanged;
+        public Action<float> OnProductionChanged;
     }
 }

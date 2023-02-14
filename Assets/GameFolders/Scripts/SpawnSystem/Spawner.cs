@@ -16,9 +16,7 @@ namespace GameFolders.Scripts.SpawnSystem
 
         [Header("Time Settings")] [SerializeField]
         private float spawnTime;
-
-        [SerializeField] [Range(0, 100)] private float levelUpPercentage;
-
+        
         [Header("Area Border Settings")] [SerializeField]
         private BorderType areaBorderType;
 
@@ -54,9 +52,14 @@ namespace GameFolders.Scripts.SpawnSystem
             _pool.Enqueue(spawnObject);
         }
 
-        public void UpgradeSpawnTime()
+        public void UpgradeSpawnTimeEnemy(float levelUpPercentage)
         {
             _currentSpawnTime -= _currentSpawnTime * levelUpPercentage * 0.01f;
+        }
+
+        public void UpgradeSpawnTime(float newSpawnTime)
+        {
+            _currentSpawnTime = newSpawnTime;
         }
 
         private void SetNewSpawnTime()
