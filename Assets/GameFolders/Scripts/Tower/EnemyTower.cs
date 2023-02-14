@@ -17,7 +17,9 @@ namespace GameFolders.Scripts.Tower
         [SerializeField] private int soldiersStartHitDamage;
         [SerializeField] private int damageIncreaseCoefficient;
         [SerializeField] [Range(0, 100)] private float levelUpPercentage;
+        [SerializeField] private GameObject canvas;
 
+        private EventData _eventData;
         private Spawner _spawner;
         
         private float _currentTime;
@@ -31,6 +33,7 @@ namespace GameFolders.Scripts.Tower
         {
             Singleton();
             _spawner = GetComponentInChildren<Spawner>();
+            _eventData = Resources.Load("EventData") as EventData;
         }
 
         private void Start()
@@ -61,13 +64,18 @@ namespace GameFolders.Scripts.Tower
 
             if (Health <= 0)
             {
-                Debug.Log($"Dead {gameObject.name}");
+                _eventData.OnFinish?.Invoke(true);
             }
         }
-
+        
         public Vector3 GetNewPosition()
         {
             return _spawner.GetNewPosition();
+        }
+
+        public void CloseCanvas()
+        {
+            canvas.SetActive(false);
         }
     }
 }

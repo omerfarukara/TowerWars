@@ -165,6 +165,10 @@ MonoBehaviour:
   healthFillImage: {fileID: 1482801710717169280}
   healthText: {fileID: 4753921610048906186}
   upgradeTime: 5
+  soldiersStartHitDamage: 0
+  damageIncreaseCoefficient: 0
+  levelUpPercentage: 0
+  canvas: {fileID: 7473790393202112447}
 --- !u!114 &4753921610048906186 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6610638424862077392, guid: 57a49bab9ddd8784ba23fc78ce43dbfe, type: 3}
@@ -176,3 +180,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7473790393202112447 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9078371574381208997, guid: 57a49bab9ddd8784ba23fc78ce43dbfe, type: 3}
+  m_PrefabInstance: {fileID: 1892890747937952282}
+  m_PrefabAsset: {fileID: 0}

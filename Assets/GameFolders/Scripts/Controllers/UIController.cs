@@ -1,38 +1,71 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using GameFolders.Scripts.Concretes;
+using GameFolders.Scripts.Managers;
+using GameFolders.Scripts.Tower;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
-public class UIController : MonoSingleton<UIController>
+namespace GameFolders.Scripts.Controllers
 {
-    private EventData _eventData;
+    public class UIController : MonoSingleton<UIController>
+    {
+        private EventData _eventData;
 
-    [Header("Panels")]
-    [SerializeField] private GameObject victoryPanel;
-    [SerializeField] private GameObject losePanel;
+        [Header("Panels")]
+        [SerializeField] private GameObject victoryPanel;
+        [SerializeField] private GameObject losePanel;
+        [SerializeField] private GameObject[] otherPanels;
     
-    [Header("Buttons")]
-    [SerializeField] Button nextLevelButton;
-    [SerializeField] Button tryAgainButton;
+        [Header("Buttons")]
+        [SerializeField] Button nextLevelButton;
+        [SerializeField] Button tryAgainButton;
 
-    private void Awake()
-    {
-        Singleton();
-        _eventData = Resources.Load("EventData") as EventData;
-    }
+        private void Awake()
+        {
+            Singleton();
+            _eventData = Resources.Load("EventData") as EventData;
+        }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+        private void OnEnable()
+        {
+            nextLevelButton.onClick.AddListener(NextLevel);
+            tryAgainButton.onClick.AddListener(TryAgain);
+            _eventData.OnFinish += Finish;
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private void OnDisable()
+        {
+            _eventData.OnFinish -= Finish;
+        }
+
+        private void Finish(bool statu)
+        {
+            if (statu)
+            {
+                victoryPanel.SetActive(true);
+            }
+            else
+            {
+                losePanel.SetActive(true);
+            }
+            
+            PlayerTower.Instance.CloseCanvas();
+            EnemyTower.Instance.CloseCanvas();
+            
+            foreach (GameObject otherPanel in otherPanels)
+            {
+                otherPanel.SetActive(false);
+            }
+        }
+
+        private void NextLevel()
+        {
+            GameManager.Instance.NextLevel();
+        }
+
+        private void TryAgain()
+        {
+            GameManager.Instance.TryAgain();
+        }
     }
 }

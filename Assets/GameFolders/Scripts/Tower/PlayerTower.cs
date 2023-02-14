@@ -13,7 +13,8 @@ namespace GameFolders.Scripts.Tower
         [SerializeField] private int health;
         [SerializeField] private Image healthFillImage;
         [SerializeField] protected TextMeshProUGUI healthText;
-
+        [SerializeField] private GameObject canvas;
+        
         private EventData _eventData;
         private Spawner _spawner;
         public float Health { get; set; }
@@ -50,7 +51,7 @@ namespace GameFolders.Scripts.Tower
             
             if (Health <= 0)
             {
-                Debug.Log($"Dead {gameObject.name}");
+                _eventData.OnFinish?.Invoke(false);
             }
         }
 
@@ -59,6 +60,11 @@ namespace GameFolders.Scripts.Tower
             return _spawner.GetNewPosition();
         }
 
+        public void CloseCanvas()
+        {
+            canvas.SetActive(false);
+        }
+        
         private void UpgradeSpawnTime(float newSpawnTime)
         {
             _spawner.UpgradeSpawnTime(newSpawnTime);

@@ -133,6 +133,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57a49bab9ddd8784ba23fc78ce43dbfe, type: 3}
+--- !u!1 &1616736961907457673 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9078371574381208997, guid: 57a49bab9ddd8784ba23fc78ce43dbfe, type: 3}
+  m_PrefabInstance: {fileID: 7751565134249728812}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3471892634945039100 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6610638424862077392, guid: 57a49bab9ddd8784ba23fc78ce43dbfe, type: 3}
@@ -164,6 +169,7 @@ MonoBehaviour:
   health: 1000
   healthFillImage: {fileID: 7296967449727362998}
   healthText: {fileID: 3471892634945039100}
+  canvas: {fileID: 1616736961907457673}
 --- !u!114 &7296967449727362998 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1069356797729733786, guid: 57a49bab9ddd8784ba23fc78ce43dbfe, type: 3}

@@ -79,6 +79,7 @@ namespace GameFolders.Scripts.Managers
         {
             if (statu)
             {
+                Level++;
             }
             else
             {
@@ -100,6 +101,11 @@ namespace GameFolders.Scripts.Managers
             SceneManager.LoadScene(Level);
         }
 
+        public void TryAgain()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+        
         #endregion
     }
 }
